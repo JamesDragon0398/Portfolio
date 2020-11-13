@@ -1,4 +1,14 @@
- command: dpkg -i filebeat-7.4.0-amd64.deb
+ ---
+  - name: Configure the filebeat
+    hosts: webservers
+    become: yes
+    tasks:
+
+    - name: Download and Install Filebeat
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+
+    - name: Install
+      command: dpkg -i filebeat-7.4.0-amd64.deb
 
     - name: drop in filebeat.yml
       copy:
@@ -11,5 +21,5 @@
     - name: setup filebeat
       command: filebeat setup
 
-    - name: start filebeat service
-      command: start filebeat service
+    - name: service filebeat start
+      command: service filebeat start
